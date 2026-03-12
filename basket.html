@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Your Basket</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f4f4f4;
+}
+
+.item{
+background:white;
+margin:10px auto;
+padding:10px;
+width:320px;
+border-radius:6px;
+}
+
+button{
+padding:8px;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Your Basket</h1>
+
+<button onclick="selectAll()">Select All</button>
+
+<div id="items"></div>
+
+<h2 id="total">Total: £0</h2>
+
+<button onclick="checkout()">Proceed to Checkout</button>
+
+<br><br>
+
+<a href="index.html">
+<button>Back to Shop</button>
+</a>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []
+
+let container = document.getElementById("items")
+
+for(let i=0;i<cart.length;i++){
+
+container.innerHTML +=
+"<div class='item'>" +
+"<input type='checkbox' class='itemCheck' data-price='"+cart[i].price+"'>" +
+cart[i].name + " - £" + cart[i].price +
+"</div>"
+
+}
+
+function selectAll(){
+
+let checks = document.getElementsByClassName("itemCheck")
+
+for(let i=0;i<checks.length;i++){
+
+checks[i].checked = true
+
+}
+
+updateTotal()
+
+}
+
+let checks = document.getElementsByClassName("itemCheck")
+
+for(let i=0;i<checks.length;i++){
+
+checks[i].addEventListener("change", updateTotal)
+
+}
+
+function updateTotal(){
+
+let total = 0
+
+let checks = document.getElementsByClassName("itemCheck")
+
+for(let i=0;i<checks.length;i++){
+
+if(checks[i].checked){
+
+total += parseFloat(checks[i].dataset.price)
+
+}
+
+}
+
+document.getElementById("total").innerText =
+"Total: £" + total
+
+}
+
+function checkout(){
+
+let total = 0
+
+let checks = document.getElementsByClassName("itemCheck")
+
+for(let i=0;i<checks.length;i++){
+
+if(checks[i].checked){
+
+total += parseFloat(checks[i].dataset.price)
+
+}
+
+}
+
+if(total === 0){
+alert("Please select items to checkout")
+return
+}
+
+let name = prompt("Enter your name:")
+if(!name) return
+
+let email = prompt("Enter your email:")
+if(!email) return
+
+let formRoom = prompt("Enter your form room:")
+if(!formRoom) return
+
+alert(
+"Thank you for your order " + name + "!\n\n"+
+"Total: £" + total + "\n\n"+
+"Your item will be ready in 2–5 working days.\n\n"+
+"Collection Location:\nB&R Gifts\nSheffield\n\n"+
+"Please bring the money to the seller."
+)
+
+}
+
+</script>
+
+</body>
+
+</html>

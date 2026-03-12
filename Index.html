@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>B&R Gifts</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+}
+
+header{
+background:black;
+color:white;
+padding:20px;
+}
+
+.products{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+margin-top:20px;
+}
+
+.product{
+background:white;
+padding:20px;
+width:230px;
+border-radius:10px;
+box-shadow:0px 2px 8px rgba(0,0,0,0.2);
+}
+
+img{
+width:150px;
+}
+
+button{
+margin-top:8px;
+padding:8px;
+background:black;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
+<script>
+
+function addToCart(name, price){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []
+
+cart.push({
+name: name,
+price: price
+})
+
+localStorage.setItem("cart", JSON.stringify(cart))
+
+alert(name + " added to basket!")
+
+}
+
+function buyNow(price){
+
+let name = prompt("Enter your name:")
+if(!name) return
+
+let email = prompt("Enter your email:")
+if(!email) return
+
+let formRoom = prompt("Enter your form room:")
+if(!formRoom) return
+
+alert(
+"Thank you for your order " + name + "!\n\n"+
+"Total: £" + price + "\n\n"+
+"Your item will be ready in 2–5 working days.\n\n"+
+"Collection Location:\nB&R Gifts\nSheffield High School for Girls\nWe will email you when your order is ready.\n\n"+
+"Please bring the money to the seller."
+)
+
+}
+
+function addCustomPlush(){
+
+let animal = document.getElementById("plushAnimal").value
+let size = document.getElementById("plushSize").value
+let colour = document.getElementById("plushColour").value
+
+if(animal === ""){
+alert("Please enter an animal")
+return
+}
+
+let price = 3
+
+if(size === "big"){
+price = 5
+}
+
+let name =
+"Custom " + size + " " + colour + " " + animal + " plushie"
+
+addToCart(name, price)
+
+}
+
+function buyCustomPlush(){
+
+let animal = document.getElementById("plushAnimal").value
+let size = document.getElementById("plushSize").value
+
+let price = 3
+
+if(size === "big"){
+price = 5
+}
+
+buyNow(price)
+
+}
+
+function submitReview(){
+
+let text = document.getElementById("reviewText").value
+let rating = document.getElementById("reviewRating").value
+
+if(text === ""){
+alert("Please write a review")
+return
+}
+
+let reviewBox = document.getElementById("reviews")
+
+let review = document.createElement("p")
+
+review.innerHTML = "⭐".repeat(rating) + " - " + text
+
+reviewBox.appendChild(review)
+
+document.getElementById("reviewText").value = ""
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>B&R Gifts</h1>
+
+<a href="basket.html">
+<button>View Basket</button>
+</a>
+
+</header>
+
+<div class="products">
+
+<div class="product">
+
+<img src="images/scrunchie.jpg">
+
+<h3>Scrunchie</h3>
+
+<p>£1.50</p>
+
+<select>
+<option>Pink</option>
+<option>Blue</option>
+<option>Purple</option>
+</select>
+
+<button onclick="addToCart('Scrunchie',1.5)">
+Add to Basket
+</button>
+
+<button onclick="buyNow(1.5)">
+Buy Now
+</button>
+
+</div>
+
+<div class="product">
+
+<img src="IMG_5924.jpeg" width="150">
+
+<h3>Mini Octopus</h3>
+
+<p>£1.50</p>
+
+<select>
+<option>Pink</option>
+<option>Blue</option>
+<option>Green</option>
+</select>
+
+<input type="text" placeholder="Optional message">
+
+<button onclick="addToCart('Mini Octopus',1.5)">
+Add to Basket
+</button>
+
+<button onclick="buyNow(1.5)">
+Buy Now
+</button>
+
+</div>
+
+<div class="product">
+
+<img src="IMG_5926.jpeg" width="150">
+
+<h3>Medium Octopus</h3>
+
+<p>£2</p>
+
+<select>
+<option>Pink</option>
+<option>Blue</option>
+<option>Green</option>
+</select>
+
+<button onclick="addToCart('Medium Octopus',2)">
+Add to Basket
+</button>
+
+<button onclick="buyNow(2)">
+Buy Now
+</button>
+
+</div>
+
+<div class="product">
+
+<img src="images/big_octopus.jpg">
+
+<h3>Big Octopus</h3>
+
+<p>£3.50</p>
+
+<select>
+<option>Pink</option>
+<option>Blue</option>
+<option>Green</option>
+</select>
+
+<button onclick="addToCart('Big Octopus',3.5)">
+Add to Basket
+</button>
+
+<button onclick="buyNow(3.5)">
+Buy Now
+</button>
+
+</div>
+
+<div class="product">
+
+<img src="images/bracelet.jpg">
+
+<h3>Custom Bracelet</h3>
+
+<p>£2</p>
+
+<input type="text" placeholder="Name on bracelet">
+
+<button onclick="addToCart('Custom Bracelet',2)">
+Add to Basket
+</button>
+
+<button onclick="buyNow(2)">
+Buy Now
+</button>
+
+</div>
+
+<div class="product">
+
+<h3>Customised Plushie</h3>
+
+<label>Animal:</label>
+<br>
+<input type="text" id="plushAnimal" placeholder="Example: Frog">
+
+<br><br>
+
+<label>Colour:</label>
+<br>
+<input type="text" id="plushColour" placeholder="Example: Green">
+
+<br><br>
+
+<label>Size:</label>
+<br>
+
+<select id="plushSize">
+
+<option value="small">Small (£3)</option>
+<option value="big">Big (£5)</option>
+
+</select>
+
+<br><br>
+
+<button onclick="addCustomPlush()">
+Add to Basket
+</button>
+
+<button onclick="buyCustomPlush()">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+<h2>Customer Reviews</h2>
+
+<textarea id="reviewText" placeholder="Write your review here"></textarea>
+
+<br><br>
+
+<label>Rating:</label>
+
+<select id="reviewRating">
+
+<option value="5">⭐⭐⭐⭐⭐</option>
+<option value="4">⭐⭐⭐⭐</option>
+<option value="3">⭐⭐⭐</option>
+<option value="2">⭐⭐</option>
+<option value="1">⭐</option>
+
+</select>
+
+<br><br>
+
+<button onclick="submitReview()">
+Post Review
+</button>
+
+<h3>Reviews</h3>
+
+<div id="reviews"></div>
+
+</body>
+</html>
